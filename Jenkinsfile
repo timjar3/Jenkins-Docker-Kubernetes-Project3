@@ -36,7 +36,7 @@ pipeline {
 		    steps {
 			    sh 'whoami'
 			    script {
-				    myimage = docker.build("timjar3/pubrepo1:${env.BUILD_ID}")
+				    myimage = docker.build("timjar3/pubrepo1:${env.BUILD_ID} .")
 			    }
 		    }
 	    }
@@ -45,10 +45,8 @@ pipeline {
 		    steps {
 			    script {
 				    echo "Push Docker Image"
-				    
-				    }
-				        myimage.push("${env.BUILD_ID}")
-				    
+				    sh "sudo docker push timjar3/pubrepo1:${env.BUILD_ID}" 
+			
 			    }
 		    }
 	    }
