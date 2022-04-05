@@ -1,14 +1,14 @@
 pipeline {
     agent any
 	tools {
-		maven 'Maven'
+		maven 'myMaven'
 	}
 	
 	environment {
-		PROJECT_ID = 'jenkins-296812'
-                CLUSTER_NAME = 'k8s-cluster'
+		PROJECT_ID = 'dockerorc'
+                CLUSTER_NAME = 'gcpcluster-1'
                 LOCATION = 'us-central1-c'
-                CREDENTIALS_ID = 'kubernetes'		
+                CREDENTIALS_ID = 'k8_Cluster'		
 	}
 	
     stages {
@@ -35,7 +35,7 @@ pipeline {
 		    steps {
 			    sh 'whoami'
 			    script {
-				    myimage = docker.build("ameintu/devops:${env.BUILD_ID}")
+				    myimage = docker.build("timjar3/pubrepo1:${env.BUILD_ID}")
 			    }
 		    }
 	    }
@@ -45,7 +45,7 @@ pipeline {
 			    script {
 				    echo "Push Docker Image"
 				    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-            				sh "docker login -u ameintu -p ${dockerhub}"
+            				sh "docker login -u timjar3 -p ${dockerhub}"
 				    }
 				        myimage.push("${env.BUILD_ID}")
 				    
