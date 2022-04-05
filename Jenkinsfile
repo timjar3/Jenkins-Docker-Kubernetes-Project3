@@ -35,9 +35,8 @@ pipeline {
 	    stage('Build Docker Image') {
 		    steps {
 			    sh 'whoami'
-			    script {
-				    myimage = docker.build("timjar3/pubrepo1:${env.BUILD_ID} .")
-			    }
+			    sh "sudo docker build -t timjar3/pubrepo1:$BUILD_NUMBER .")
+			    
 		    }
 	    }
 	    
